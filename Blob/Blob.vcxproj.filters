@@ -26,5 +26,8 @@
     <ClInclude Include="include\core\gameobjects\point.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\core\config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

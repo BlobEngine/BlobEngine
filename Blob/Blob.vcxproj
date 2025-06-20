@@ -137,6 +137,7 @@
     <ClCompile Include="src\core\gameobjects\point.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\core\config.h" />
     <ClInclude Include="include\core\gameobjects\point.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
