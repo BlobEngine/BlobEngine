@@ -12,13 +12,13 @@ int main() {
   window.setFramerateLimit(gameWindow.FRAME_RATE);
 
   Shape tri;
-  // tri.gravity = sf::Vector2f{0.0f, 10.0f};
-  int pointQuantity = 3;
+  tri.gravity = sf::Vector2f{0.0f, 20.0f};
+  int pointQuantity = 300;
 
   for (int i = 0; i < pointQuantity; ++i) {
     Points p;
     p.position = sf::Vector2f(100 + i * 40, 100);
-    p.velocity = sf::Vector2f(20.0f, 40.0f);
+    p.velocity = sf::Vector2f(80.0f, 80.0f);
     tri.points.push_back(p);
   }
 
@@ -35,12 +35,17 @@ int main() {
 
     window.clear(sf::Color::Black);
 
-    for (const auto &p : tri.points) {
-      sf::CircleShape shape(10.0f);
+    for (auto& p : tri.points) {
+      sf::CircleShape shape(p.radius);
+      shape.setOrigin(sf::Vector2f{p.radius, p.radius});
       shape.setFillColor(sf::Color::Green);
       shape.setPosition(p.position);
       window.draw(shape);
+
+      tri.WindowCollision(window, p);
     }
+
+  
 
     window.display();
   }
