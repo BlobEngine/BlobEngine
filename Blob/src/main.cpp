@@ -1,5 +1,16 @@
 #include "../include/core/config.h"
 #include "../include/core/gameobjects/shape.h"
+#include <random>
+
+sf::Vector2f Random(sf::RenderWindow& window)
+{
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<float> distX(0.f, window.getSize().x - 100.f);
+    std::uniform_real_distribution<float> distY(0.f, window.getSize().y - 100.f);
+
+    return sf::Vector2f{ distX(gen), distY(gen) };
+}
 
 int main() {
   GameWindow gameWindow;
@@ -12,13 +23,13 @@ int main() {
   window.setFramerateLimit(gameWindow.FRAME_RATE);
 
   Shape tri;
-  tri.gravity = sf::Vector2f{0.0f, 20.0f};
-  int pointQuantity = 300;
+  tri.gravity = sf::Vector2f{0.0f, 100.0f};
+  int pointQuantity = 50;
 
   for (int i = 0; i < pointQuantity; ++i) {
     Points p;
-    p.position = sf::Vector2f(100 + i * 40, 100);
-    p.velocity = sf::Vector2f(80.0f, 80.0f);
+    p.position = sf::Vector2f(Random(window));
+    p.velocity = sf::Vector2f(100.0f, 100.0f);
     tri.points.push_back(p);
   }
 
@@ -31,11 +42,12 @@ int main() {
         window.close();
     }
     float dt = clock.restart().asSeconds();
-    tri.Update(dt);
+    tri.Move(dt);
 
     window.clear(sf::Color::Black);
 
-    for (auto& p : tri.points) {
+    for (auto& p : tri.points) 
+    {
       sf::CircleShape shape(p.radius);
       shape.setOrigin(sf::Vector2f{p.radius, p.radius});
       shape.setFillColor(sf::Color::Green);
@@ -43,9 +55,20 @@ int main() {
       window.draw(shape);
 
       tri.WindowCollision(window, p);
-    }
 
-  
+    }  
+
+    for (auto& pa : tri.points)
+    {
+        for (auto& pb : tri.points)
+        {
+            if (&pa != &pb)
+            {
+                tri.CircleCollision(pa, pb);
+            }
+        }
+
+    }
 
     window.display();
   }
