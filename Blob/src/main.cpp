@@ -1,24 +1,25 @@
-﻿#include "../include/core/config.h"
-#include "../../../include/core/random.h"
+﻿#include <SFML/Graphics.hpp>
+#include "../include/core/config.h"
+#include "../include/core/random.h"
 #include "../include/core/gameobjects/shape.h"
-
-#include <SFML/Graphics.hpp>
-//#include <imgui.h>
-//#include <imgui-SFML.h>
 
 int main() {
 	// ─── Window & Settings ─────────────────────────────────────────────
 	GameWindow gameWindow;
 	sf::ContextSettings settings;
 	settings.antiAliasingLevel = gameWindow.ANTI_ALIASING;
-	sf::RenderWindow window(sf::VideoMode({ gameWindow.WINDOW_WIDTH, gameWindow.WINDOW_HEIGHT }), gameWindow.WINDOW_TITLE);
+
+	sf::RenderWindow window(
+		sf::VideoMode({ gameWindow.WINDOW_WIDTH, gameWindow.WINDOW_HEIGHT }),
+		gameWindow.WINDOW_TITLE
+	);
 	window.setFramerateLimit(gameWindow.FRAME_RATE);
 
-	// ─── Global Setup ───────────────────────────────────────
+	// ─── Global Setup ─────────────────────────────────────────────────
 	shape::Random random;
 	sf::Clock clock;
 
-	// ─── Shape Setup ───────────────────────────────────────
+	// ─── Shape Initialization ─────────────────────────────────────────
 	Shape shape;
 	shape.Initialize(window);
 
@@ -26,8 +27,9 @@ int main() {
 		point.color = random.setColor();
 	}
 
-	// ─── Main Loop ─────────────────────────────────────────────────────
+	// ─── Main Loop ────────────────────────────────────────────────────
 	while (window.isOpen()) {
+
 		// ─── Handle Events ─────────────────────────────────────────────
 		while (const std::optional event = window.pollEvent()) {
 			if (event->is<sf::Event::Closed>())
@@ -38,7 +40,7 @@ int main() {
 		float dt = clock.restart().asSeconds();
 		shape.Move(dt);
 
-		// ─── Collision: Window ─────────────────────────────────────────
+		// ─── Collision: Window Edges ──────────────────────────────────
 		for (auto& point : shape.points) {
 			shape.WindowCollision(window, point);
 		}
@@ -58,4 +60,3 @@ int main() {
 
 	return 0;
 }
-
