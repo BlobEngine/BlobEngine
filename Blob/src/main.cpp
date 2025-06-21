@@ -1,9 +1,10 @@
-﻿#include <SFML/Graphics.hpp>
-#include "../include/core/random.h"
+﻿#include "../include/core/random.h"
 #include "../include/core/gameobjects/shape.h"
+#include "../include/core/physics/physics.h"
+#include "../include/core/config.h"
 
 int main() {
-	// ─── Window & Settings ─────────────────────────────────────────────
+	// ─── Window & Settings ───────────────────────────────────────────
 	GameWindow gameWindow;
 	sf::ContextSettings settings;
 	settings.antiAliasingLevel = gameWindow.ANTI_ALIASING;
@@ -14,11 +15,13 @@ int main() {
 	);
 	window.setFramerateLimit(gameWindow.FRAME_RATE);
 
-	// ─── Global Setup ─────────────────────────────────────────────────
+	// ─── Global Setup ────────────────────────────────────────────────
 	shape::Random random;
+	PhysicsEngine::Verlet verlet;
+	PhysicsEngine::Collision collision;
 	sf::Clock clock;
 
-	// ─── Shape Initialization ─────────────────────────────────────────
+	// ─── Shape Initialization ────────────────────────────────────────
 	Shape shape;
 	shape.Initialize(window);
 
@@ -26,32 +29,35 @@ int main() {
 		point.color = random.setColor();
 	}
 
-	// ─── Main Loop ────────────────────────────────────────────────────
+	// ─── Main Loop ───────────────────────────────────────────────────
 	while (window.isOpen()) {
-
-		// ─── Handle Events ─────────────────────────────────────────────
+		// ─── Handle Events ────────────────────────────────────────────
 		while (const std::optional event = window.pollEvent()) {
 			if (event->is<sf::Event::Closed>())
 				window.close();
 		}
 
-		// ─── Update Logic ──────────────────────────────────────────────
+		// ─── Update Logic ─────────────────────────────────────────────
 		float dt = clock.restart().asSeconds();
-		shape.Move(dt);
 
-		// ─── Collision: Window Edges ──────────────────────────────────
+		// Apply physics to each point
 		for (auto& point : shape.points) {
-			shape.WindowCollision(window, point);
+			verlet.ApplyVerlet(point, dt);
 		}
 
-		// ─── Collision: Circle vs Circle ───────────────────────────────
+		// ─── Collision: Window Edges ─────────────────────────────────
+		for (auto& point : shape.points) {
+			collision.ResolveWindowCollision(point, window);
+		}
+
+		// ─── Collision: Circle vs Circle ─────────────────────────────
 		for (size_t i = 0; i < shape.points.size(); ++i) {
 			for (size_t j = i + 1; j < shape.points.size(); ++j) {
-				shape.CircleCollision(shape.points[i], shape.points[j]);
+				collision.ResolveCircleCollision(shape.points[i], shape.points[j]);
 			}
 		}
 
-		// ─── Render ────────────────────────────────────────────────────
+		// ─── Render ─────────────────────────────────────────────────
 		window.clear(sf::Color::Black);
 		shape.Draw(window);
 		window.display();

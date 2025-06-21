@@ -1,7 +1,6 @@
+#include <random>
 #include "../../include/core/random.h"
 #include "../../include/core/config.h"
-
-#include <random>
 
 // Randomize position inside window
 sf::Vector2f shape::Random::setPosition(const sf::RenderWindow& window) {

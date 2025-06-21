@@ -20,19 +20,5 @@ struct RandomValue {
 	float MIN_VELOCITY = 100.0f;				// Minimum velocity for random movement generation
 };
 
-// Configuration for physical properties.
-namespace physics
-{
-	struct DefaultValue {
-		int MASS = 5;							// Mass of the point, affects physics
-		float GRAVITY_X = 0.0f;					// Constant downward force (X axis)
-		float GRAVITY_Y = 100.0f;				// Constant downward force (Y axis)
-		float RADIUS = 20.0f;					// Radius used for drawing and collisions
-		float RESTITUTION = 0.95f;				// Bounciness (1 = fully elastic)
-		float DAMPING = 10.0f;					// Slows down the motion over time
-		int MAXPOINTS = 100;					// Maximum number of points allowed
-	};
-
-}
 
 
