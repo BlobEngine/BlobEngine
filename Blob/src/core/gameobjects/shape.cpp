@@ -1,22 +1,15 @@
 #include "../../../include/core/gameobjects/shape.h"
-#include <random>
+#include "../../../include/core/random.h"
+
 #include <algorithm>
 
-// Randomize position inside window
-sf::Vector2f Point::SetRandom(const sf::RenderWindow& window) {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_real_distribution<float> distX(0.f, window.getSize().x - 100.f);
-    std::uniform_real_distribution<float> distY(0.f, window.getSize().y - 100.f);
-    return sf::Vector2f{ distX(gen), distY(gen) };
-}
-
-// Initialize maxPoints with random position and default velocity
+// Initialize maxPoints with random position and random velocity
 void Shape::Initialize(sf::RenderWindow& window) {
+    shape::Random random;
     Point temp;
     for (int i = 0; i < maxPoints; ++i) {
-        temp.position = temp.SetRandom(window);
-        temp.velocity = sf::Vector2f(100.0f, 100.0f);
+        temp.position = random.setPosition(window);
+        temp.velocity = random.setVelocity();
         points.push_back(temp);
     }
 }
@@ -28,6 +21,7 @@ void Shape::Move(float dt) {
         p.velocity += force * dt;
         p.position += p.velocity * dt;
 
+        // Apply Damping
         if (p.velocity.x > 0)
             p.velocity.x = std::max(0.0f, p.velocity.x - p.damping * dt);
         if (p.velocity.y > 0)
@@ -35,13 +29,15 @@ void Shape::Move(float dt) {
     }
 }
 
+// Draw points as circleShape
 void Shape::Draw(sf::RenderWindow& window) {
 
+    shape::Random random;
     for (auto& p : points)
     {
         sf::CircleShape circle(p.radius);
         circle.setOrigin(sf::Vector2f{ p.radius, p.radius });
-        circle.setFillColor(sf::Color::White);
+        circle.setFillColor(p.color);
         circle.setPosition(p.position);
         window.draw(circle);
     }

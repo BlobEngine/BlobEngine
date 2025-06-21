@@ -3,22 +3,20 @@
 #include <vector>
 #include <cmath>
 
-//struct Shape; // Forward declaration
-
 struct Point {
     int mass = 5;
-    float radius = 10.0f;
+    float radius = 20.0f;
     float restitution = 1.0f;
-    float damping = 20.0f;
+    float damping = 10.0f;
 
     sf::Vector2f velocity;
     sf::Vector2f position;
 
-    sf::Vector2f SetRandom(const sf::RenderWindow& window);
+    sf::Color color;
 };
 
 struct Shape {
-    int maxPoints = 300;
+    int maxPoints = 100;
     std::vector<Point> points;
     sf::Vector2f gravity{ 0.0f, 100.0f };
 

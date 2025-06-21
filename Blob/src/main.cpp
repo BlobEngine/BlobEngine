@@ -1,25 +1,30 @@
 ﻿#include "../include/core/config.h"
+#include "../../../include/core/random.h"
 #include "../include/core/gameobjects/shape.h"
 
 #include <SFML/Graphics.hpp>
 //#include <imgui.h>
-#include <imgui-SFML.h>
+//#include <imgui-SFML.h>
 
 int main() {
 	// ─── Window & Settings ─────────────────────────────────────────────
 	GameWindow gameWindow;
 	sf::ContextSettings settings;
 	settings.antiAliasingLevel = gameWindow.ANTI_ALIASING;
-
 	sf::RenderWindow window(sf::VideoMode({ gameWindow.WINDOW_WIDTH, gameWindow.WINDOW_HEIGHT }), gameWindow.WINDOW_TITLE);
-
-
 	window.setFramerateLimit(gameWindow.FRAME_RATE);
 
-	// ─── Clock and Physics Setup ───────────────────────────────────────
+	// ─── Global Setup ───────────────────────────────────────
+	shape::Random random;
 	sf::Clock clock;
+
+	// ─── Shape Setup ───────────────────────────────────────
 	Shape shape;
 	shape.Initialize(window);
+
+	for (auto& point : shape.points) {
+		point.color = random.setColor();
+	}
 
 	// ─── Main Loop ─────────────────────────────────────────────────────
 	while (window.isOpen()) {
