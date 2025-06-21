@@ -111,6 +111,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\Imgui\include;$(ProjectDir)external\Imgui-SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,6 +127,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\Imgui\include;$(ProjectDir)external\Imgui-SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,10 +135,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="external\Imgui-SFML\src\imgui-SFML.cpp" />
+    <ClCompile Include="external\Imgui\src\imgui.cpp" />
+    <ClCompile Include="external\Imgui\src\imgui_demo.cpp" />
+    <ClCompile Include="external\Imgui\src\imgui_draw.cpp" />
+    <ClCompile Include="external\Imgui\src\imgui_tables.cpp" />
+    <ClCompile Include="external\Imgui\src\imgui_widgets.cpp" />
     <ClCompile Include="src\core\gameobjects\shape.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="external\Imgui-SFML\include\imconfig-SFML.h" />
+    <ClInclude Include="external\Imgui-SFML\include\imgui-SFML.h" />
+    <ClInclude Include="external\Imgui-SFML\include\imgui-SFML_export.h" />
+    <ClInclude Include="external\Imgui\include\imconfig.h" />
+    <ClInclude Include="external\Imgui\include\imgui.h" />
+    <ClInclude Include="external\Imgui\include\imgui_internal.h" />
+    <ClInclude Include="external\Imgui\include\imstb_rectpack.h" />
+    <ClInclude Include="external\Imgui\include\imstb_textedit.h" />
+    <ClInclude Include="external\Imgui\include\imstb_truetype.h" />
     <ClInclude Include="include\core\config.h" />
     <ClInclude Include="include\core\gameobjects\shape.h" />
   </ItemGroup>

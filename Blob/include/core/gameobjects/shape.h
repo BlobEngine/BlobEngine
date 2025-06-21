@@ -3,23 +3,28 @@
 #include <vector>
 #include <cmath>
 
-struct Points {
+//struct Shape; // Forward declaration
 
-  float radius = 10;
+struct Point {
+    int mass = 5;
+    float radius = 10.0f;
+    float restitution = 1.0f;
+    float damping = 20.0f;
 
-  int mass = 5;
-  sf::Vector2f velocity;
-  sf::Vector2f position;
+    sf::Vector2f velocity;
+    sf::Vector2f position;
 
-  float restitution = 1.0f;
-  float damping = 20.0f;
+    sf::Vector2f SetRandom(const sf::RenderWindow& window);
 };
 
 struct Shape {
-  std::vector<Points> points;
-  sf::Vector2f gravity;
+    int maxPoints = 300;
+    std::vector<Point> points;
+    sf::Vector2f gravity{ 0.0f, 100.0f };
 
-  void Move(float dt);
-  void WindowCollision(sf::RenderWindow& window, Points& points);
-  void CircleCollision(Points& pointA, Points& pointB);
+    void Initialize(sf::RenderWindow& window);
+    void Move(float dt);
+    void Draw(sf::RenderWindow& window);
+    void WindowCollision(sf::RenderWindow& window, Point& point);
+    void CircleCollision(Point& a, Point& b);
 };

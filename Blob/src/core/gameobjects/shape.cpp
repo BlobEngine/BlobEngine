@@ -1,39 +1,69 @@
 #include "../../../include/core/gameobjects/shape.h"
-#include <cmath>
+#include <random>
+#include <algorithm>
 
+// Randomize position inside window
+sf::Vector2f Point::SetRandom(const sf::RenderWindow& window) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<float> distX(0.f, window.getSize().x - 100.f);
+    std::uniform_real_distribution<float> distY(0.f, window.getSize().y - 100.f);
+    return sf::Vector2f{ distX(gen), distY(gen) };
+}
+
+// Initialize maxPoints with random position and default velocity
+void Shape::Initialize(sf::RenderWindow& window) {
+    Point temp;
+    for (int i = 0; i < maxPoints; ++i) {
+        temp.position = temp.SetRandom(window);
+        temp.velocity = sf::Vector2f(100.0f, 100.0f);
+        points.push_back(temp);
+    }
+}
+
+// Apply Verlet Integration
 void Shape::Move(float dt) {
-  for (auto &p : points) {
-    sf::Vector2f force = sf::Vector2f{p.mass * gravity.x, p.mass * gravity.y};
-    p.velocity += force * dt;
-    p.position += p.velocity * dt;
+    for (auto& p : points) {
+        sf::Vector2f force = gravity * static_cast<float>(p.mass);
+        p.velocity += force * dt;
+        p.position += p.velocity * dt;
 
-    if (p.velocity.x > 0)
-    {
-        p.velocity.x = std::max(0.0f, p.velocity.x - p.damping * dt);
-    }
-    if (p.velocity.y > 0)
-    {
-        p.velocity.y = std::max(0.0f, p.velocity.y - p.damping * dt);
-    }
-  }
-}
-
-void Shape::WindowCollision(sf::RenderWindow& window, Points& points) {
-
-    // x axis
-    if (points.position.x - points.radius < 0 || points.position.x + points.radius > window.getSize().x) {
-        points.position.x = std::clamp(points.position.x, points.radius, window.getSize().x - points.radius);
-        points.velocity.x = -points.velocity.x;
-    }
-
-    // y axis
-    if (points.position.y - points.radius < 0 || points.position.y + points.radius > window.getSize().y) {
-        points.position.y = std::clamp(points.position.y, points.radius, window.getSize().y - points.radius);
-        points.velocity.y = -points.velocity.y;
+        if (p.velocity.x > 0)
+            p.velocity.x = std::max(0.0f, p.velocity.x - p.damping * dt);
+        if (p.velocity.y > 0)
+            p.velocity.y = std::max(0.0f, p.velocity.y - p.damping * dt);
     }
 }
 
-void Shape::CircleCollision(Points& a, Points& b) {
+void Shape::Draw(sf::RenderWindow& window) {
+
+    for (auto& p : points)
+    {
+        sf::CircleShape circle(p.radius);
+        circle.setOrigin(sf::Vector2f{ p.radius, p.radius });
+        circle.setFillColor(sf::Color::White);
+        circle.setPosition(p.position);
+        window.draw(circle);
+    }
+}
+
+// Collision against window boundaries
+void Shape::WindowCollision(sf::RenderWindow& window, Point& point) {
+    // X axis
+    if (point.position.x - point.radius < 0 || point.position.x + point.radius > window.getSize().x) {
+        point.position.x = std::clamp(point.position.x, point.radius, window.getSize().x - point.radius);
+        point.velocity.x = -point.velocity.x;
+    }
+
+    // Y axis
+    if (point.position.y - point.radius < 0 || point.position.y + point.radius > window.getSize().y) {
+        point.position.y = std::clamp(point.position.y, point.radius, window.getSize().y - point.radius);
+        point.velocity.y = -point.velocity.y;
+    }
+}
+
+// Collision between two points (circle physics)
+void Shape::CircleCollision(Point& a, Point& b) {
     float dx = b.position.x - a.position.x;
     float dy = b.position.y - a.position.y;
     float distance = std::sqrt(dx * dx + dy * dy);
@@ -42,14 +72,17 @@ void Shape::CircleCollision(Points& a, Points& b) {
     if (distance < totalRadius && distance != 0.0f) {
         float angle = std::atan2(dy, dx);
 
+        // Rotate velocities
         float v1x = a.velocity.x * std::cos(angle) + a.velocity.y * std::sin(angle);
         float v1y = a.velocity.y * std::cos(angle) - a.velocity.x * std::sin(angle);
         float v2x = b.velocity.x * std::cos(angle) + b.velocity.y * std::sin(angle);
         float v2y = b.velocity.y * std::cos(angle) - b.velocity.x * std::sin(angle);
 
+        // 1D elastic collision
         float v1PrimeX = (v1x * (a.mass - b.mass) + 2 * b.mass * v2x) * a.restitution / (a.mass + b.mass);
         float v2PrimeX = (v2x * (b.mass - a.mass) + 2 * a.mass * v1x) * b.restitution / (a.mass + b.mass);
 
+        // Rotate back
         a.velocity.x = v1PrimeX * std::cos(-angle) + v1y * std::sin(-angle);
         a.velocity.y = v1y * std::cos(-angle) - v1PrimeX * std::sin(-angle);
         b.velocity.x = v2PrimeX * std::cos(-angle) + v2y * std::sin(-angle);
@@ -57,11 +90,10 @@ void Shape::CircleCollision(Points& a, Points& b) {
 
         // Position correction
         float overlap = 0.5f * (totalRadius - distance);
-        sf::Vector2f normal = sf::Vector2f(dx / distance, dy / distance);
+        sf::Vector2f normal(dx / distance, dy / distance);
         sf::Vector2f displacement = normal * overlap;
 
         a.position -= displacement;
         b.position += displacement;
     }
-
 }
