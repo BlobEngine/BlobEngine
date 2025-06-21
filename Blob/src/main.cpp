@@ -21,7 +21,6 @@ int main() {
 	PhysicsEngine::Collision collision;
 	sf::Clock clock;
 
-	// ─── Shape Initialization ────────────────────────────────────────
 	Shape shape;
 	shape.Initialize(window);
 
@@ -31,7 +30,7 @@ int main() {
 
 	// ─── Main Loop ───────────────────────────────────────────────────
 	while (window.isOpen()) {
-		// ─── Handle Events ────────────────────────────────────────────
+
 		while (const std::optional event = window.pollEvent()) {
 			if (event->is<sf::Event::Closed>())
 				window.close();
@@ -40,17 +39,11 @@ int main() {
 		// ─── Update Logic ─────────────────────────────────────────────
 		float dt = clock.restart().asSeconds();
 
-		// Apply physics to each point
 		for (auto& point : shape.points) {
 			verlet.ApplyVerlet(point, dt);
-		}
-
-		// ─── Collision: Window Edges ─────────────────────────────────
-		for (auto& point : shape.points) {
 			collision.ResolveWindowCollision(point, window);
 		}
 
-		// ─── Collision: Circle vs Circle ─────────────────────────────
 		for (size_t i = 0; i < shape.points.size(); ++i) {
 			for (size_t j = i + 1; j < shape.points.size(); ++j) {
 				collision.ResolveCircleCollision(shape.points[i], shape.points[j]);
