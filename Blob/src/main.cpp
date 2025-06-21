@@ -1,5 +1,4 @@
 ﻿#include <SFML/Graphics.hpp>
-#include "../include/core/config.h"
 #include "../include/core/random.h"
 #include "../include/core/gameobjects/shape.h"
 
