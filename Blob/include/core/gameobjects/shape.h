@@ -8,7 +8,7 @@ struct Shape {
     int maxPoints = 100;
     std::vector<Point> points;
 
-    void Initialize(sf::RenderWindow& window);                      // Setup points with random values
-    void Draw(sf::RenderWindow& window);                            // Render each point on screen
+    void Initialize(sf::RenderWindow& window);    // Setup points with random values
+    void Draw(sf::RenderWindow& window);          // Render each point on screen
 
 };
