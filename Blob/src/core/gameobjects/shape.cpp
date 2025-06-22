@@ -4,7 +4,7 @@
 
 // Initialize maxPoints with random position and random velocity
 void Shape::Initialize(sf::RenderWindow& window) {
-    shape::Random random;
+    Random random;
     Point temp;
     for (int i = 0; i < maxPoints; ++i) {
         temp.position = random.setPosition(window);
@@ -16,7 +16,7 @@ void Shape::Initialize(sf::RenderWindow& window) {
 // Draw points as circleShape
 void Shape::Draw(sf::RenderWindow& window) {
 
-    shape::Random random;
+    Random random;
     for (auto& p : points)
     {
         sf::CircleShape circle(p.radius);

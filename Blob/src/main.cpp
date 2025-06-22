@@ -13,10 +13,12 @@ int main() {
 		sf::VideoMode({ gameWindow.WINDOW_WIDTH, gameWindow.WINDOW_HEIGHT }),
 		gameWindow.WINDOW_TITLE
 	);
+
+
 	window.setFramerateLimit(gameWindow.FRAME_RATE);
 
 	// ─── Global Setup ────────────────────────────────────────────────
-	shape::Random random;
+	Random random;
 	PhysicsEngine::Verlet verlet;
 	PhysicsEngine::Collision collision;
 	sf::Clock clock;

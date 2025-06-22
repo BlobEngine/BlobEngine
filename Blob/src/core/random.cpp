@@ -2,7 +2,7 @@
 #include "../../include/core/random.h"
 #include "../../include/core/config.h"
 
-shape::Random::Random()
+Random::Random()
 	: gen(std::random_device{}()),
 	distColor(0, 255)
 {
@@ -13,7 +13,7 @@ shape::Random::Random()
 	distY = std::uniform_real_distribution<float>(0.f, 1.f);
 }
 
-sf::Vector2f shape::Random::setPosition(const sf::RenderWindow& window) {
+sf::Vector2f Random::setPosition(const sf::RenderWindow& window) {
 	RandomValue rv;
 	float maxX = window.getSize().x - rv.MIN_POSITION;
 	float maxY = window.getSize().y - rv.MIN_POSITION;
@@ -22,11 +22,11 @@ sf::Vector2f shape::Random::setPosition(const sf::RenderWindow& window) {
 	return sf::Vector2f{ distX(gen), distY(gen) };
 }
 
-sf::Vector2f shape::Random::setVelocity() {
+sf::Vector2f Random::setVelocity() {
 	return sf::Vector2f{ distVelocityX(gen), distVelocityY(gen) };
 }
 
-sf::Color shape::Random::setColor() {
+sf::Color Random::setColor() {
 	return sf::Color(
 		static_cast<uint8_t>(distColor(gen)),
 		static_cast<uint8_t>(distColor(gen)),
