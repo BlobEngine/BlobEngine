@@ -10,6 +10,6 @@ struct Point {
     // Extra
     sf::Color color;
     float radius = 20.0f;
-    float restitution = 0.95f;
+    float restitution = 0.85f;
 
 };

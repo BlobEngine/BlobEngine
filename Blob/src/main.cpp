@@ -46,10 +46,11 @@ int main() {
     // ─── Update Logic ─────────────────────────────────────────────
     float dt = clock.restart().asSeconds();
 
+    input.MouseDrag(shape.points, window);
+
     for (auto &point : shape.points) {
       verlet.ApplyVerlet(point, dt);
       collision.ResolveWindowCollision(point, window);
-      input.MouseDrag(point);
     }
 
     for (size_t i = 0; i < shape.points.size(); ++i) {

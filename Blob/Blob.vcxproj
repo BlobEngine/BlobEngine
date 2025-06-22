@@ -142,6 +142,7 @@
     <ClCompile Include="external\Imgui\src\imgui_tables.cpp" />
     <ClCompile Include="external\Imgui\src\imgui_widgets.cpp" />
     <ClCompile Include="src\core\gameobjects\shape.cpp" />
+    <ClCompile Include="src\core\input.cpp" />
     <ClCompile Include="src\core\physics\physics.cpp" />
     <ClCompile Include="src\core\random.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="include\core\config.h" />
     <ClInclude Include="include\core\gameobjects\point.h" />
     <ClInclude Include="include\core\gameobjects\shape.h" />
+    <ClInclude Include="include\core\input.h" />
     <ClInclude Include="include\core\physics\physics.h" />
     <ClInclude Include="include\core\random.h" />
   </ItemGroup>
