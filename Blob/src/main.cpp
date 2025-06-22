@@ -1,5 +1,6 @@
 ﻿#include "../include/core/config.h"
 #include "../include/core/gameobjects/shape.h"
+#include "../include/core/input.h"
 #include "../include/core/physics/physics.h"
 #include "../include/core/random.h"
 
@@ -25,6 +26,7 @@ int main() {
   PhysicsEngine::Verlet verlet;
   PhysicsEngine::Collision collision;
   sf::Clock clock;
+  Input input;
 
   Shape shape;
   shape.Initialize(window);
@@ -47,6 +49,7 @@ int main() {
     for (auto &point : shape.points) {
       verlet.ApplyVerlet(point, dt);
       collision.ResolveWindowCollision(point, window);
+      input.MouseDrag(point);
     }
 
     for (size_t i = 0; i < shape.points.size(); ++i) {
