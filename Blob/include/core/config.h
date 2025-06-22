@@ -5,8 +5,8 @@
 struct GameWindow {
 
 	std::string WINDOW_TITLE = "Blob Engine"; 	// Title of the window displayed in the title bar
+	unsigned int WINDOW_WIDTH = 1400; 			// Width of the window in pixels
 	unsigned int WINDOW_HEIGHT = 800;			// Height of the window in pixels
-	unsigned int WINDOW_WIDTH = 800; 			// Width of the window in pixels
 	bool VERTICAL_SYNC = true; 					// Enable or disable vertical sync (prevents screen tearing)
 	float FRAME_RATE = 60;						// Maximum frame rate limit (in frames per second)
 	int ANTI_ALIASING = 8; 						// Level of anti-aliasing for smoother edges (higher = better quality, slower performance)
