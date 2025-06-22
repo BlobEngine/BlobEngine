@@ -7,10 +7,12 @@ int main() {
   // ─── Window & Settings ───────────────────────────────────────────
   GameWindow gameWindow;
   sf::ContextSettings settings;
-  sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-  gameWindow.WINDOW_WIDTH = desktop.size.x;
-  gameWindow.WINDOW_HEIGHT = desktop.size.y;
   settings.antiAliasingLevel = gameWindow.ANTI_ALIASING;
+
+ // Fullscreen
+ // sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
+ // gameWindow.WINDOW_WIDTH = desktop.size.x;
+ // gameWindow.WINDOW_HEIGHT = desktop.size.y;
 
   sf::RenderWindow window(
       sf::VideoMode({gameWindow.WINDOW_WIDTH, gameWindow.WINDOW_HEIGHT}),
