@@ -1,7 +1,4 @@
 #include "../../include/editor/debugmenu.h"
-#include "../../external/Imgui-SFML/include/imgui-SFML.h"
-#include "../../external/Imgui/include/imgui.h"
-#include "../../include/core/physics/physics.h"
 
 namespace Editor {
 int pointMass = 5;

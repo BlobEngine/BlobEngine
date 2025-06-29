@@ -16,8 +16,8 @@ struct GameWindow {
 struct RandomValue {
 
 	float MIN_POSITION = 100.0f;				// Minimum distance from edge of screen for positioning
-	float MAX_VELOCITY = 200.0f;				// Maximum velocity for random movement generation
-	float MIN_VELOCITY = 100.0f;				// Minimum velocity for random movement generation
+	float MAX_VELOCITY = 20.0f;					// Maximum velocity for random movement generation
+	float MIN_VELOCITY = 5.0f;					// Minimum velocity for random movement generation
 };
 
 

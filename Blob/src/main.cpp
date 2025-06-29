@@ -6,8 +6,10 @@
 #include "../include/core/physics/physics.h"
 #include "../include/core/random.h"
 #include "../include/editor/debugmenu.h"
+#include "../include/core/gameobjects/spring.h"
 
-int main() {
+int main() 
+{
   // ─── Window & Settings ───────────────────────────────────────────
   GameWindow gameWindow;
   sf::ContextSettings settings;
@@ -28,12 +30,22 @@ int main() {
   // ─── Global Setup ────────────────────────────────────────────────
   Random random;
   PhysicsEngine::Verlet verlet;
+  PhysicsEngine::SpringForce springPhysics;
   PhysicsEngine::Collision collision;
   sf::Clock clock;
   Input input;
 
   Shape shape;
   shape.Initialize(window);
+
+  std::vector<Spring> springs;
+  for (size_t i = 0; i < shape.points.size(); ++i) {
+      for (size_t j = i + 1; j < shape.points.size(); ++j) {
+     
+          springs.emplace_back(&shape.points[i], &shape.points[j], 60.0f); // stiffness
+      }
+  }
+
 
   for (auto &point : shape.points) {
     point.color = random.setColor();
@@ -66,6 +78,12 @@ int main() {
       }
     }
 
+    for (auto& spring : springs) {
+        spring.restLength = 200.0f;
+        springPhysics.ApplyForce(*spring.a, *spring.b, spring.restLength, spring.springConstant, dt);
+    }
+
+
     // ─── Render ─────────────────────────────────────────────────
 
     window.clear(sf::Color::Black);
@@ -73,6 +91,17 @@ int main() {
     Editor::drawDebugMenu(verlet, shape);
     ImGui::End();
     shape.Draw(window);
+
+    for (auto& line : springPhysics.springLinesToDraw) {
+        sf::Vertex vertices[2] = {
+            sf::Vertex{line.first, sf::Color::White},
+            sf::Vertex{line.second, sf::Color::White}
+        };
+
+        window.draw(vertices, 2, sf::PrimitiveType::Lines);
+    }
+
+    springPhysics.springLinesToDraw.clear();
     ImGui::SFML::Render(window);
     window.display();
   }
