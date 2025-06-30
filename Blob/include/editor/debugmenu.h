@@ -3,7 +3,7 @@
 #include "../../external/Imgui/include/imgui.h"
 #include "../../include/core/gameobjects/shape.h"
 #include "../../include/core/physics/physics.h"
-#include "core/gameobjects/spring.h"
+#include "../../include/core/gameobjects/spring.h"
 #include <cstddef>
 #include <vector>
 
