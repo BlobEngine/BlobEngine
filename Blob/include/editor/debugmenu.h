@@ -5,5 +5,5 @@
 #include "../../include/core/gameobjects/shape.h"
 
 namespace Editor {
-void drawDebugMenu(PhysicsEngine::Verlet &physics, Shape &shape);
+void drawDebugMenu(Shape &shape);
 }

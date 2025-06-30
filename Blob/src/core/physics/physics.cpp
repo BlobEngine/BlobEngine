@@ -2,7 +2,7 @@
 #include <cmath>
 #include <algorithm>
 
-void PhysicsEngine::Verlet::ApplyVerlet(Point& p, float dt) {
+void PhysicsEngine::Verlet::Apply(Point& p, float dt) {
     sf::Vector2f force = gravity * static_cast<float>(p.mass);
     p.velocity += force * dt;
     p.position += p.velocity * dt;
@@ -13,7 +13,7 @@ void PhysicsEngine::Verlet::ApplyVerlet(Point& p, float dt) {
         p.velocity.y = std::max(0.0f, p.velocity.y - damping * dt);
 }
 
-void PhysicsEngine::Collision::ResolveWindowCollision(Point& point, const sf::RenderWindow& window) {
+void PhysicsEngine::Collision::ResolveWindow(Point& point, const sf::RenderWindow& window) {
     if (point.position.x - point.radius < 0 || point.position.x + point.radius > window.getSize().x) {
         point.position.x = std::clamp(point.position.x, point.radius, window.getSize().x - point.radius);
         point.velocity.x = -point.velocity.x;
@@ -25,7 +25,7 @@ void PhysicsEngine::Collision::ResolveWindowCollision(Point& point, const sf::Re
     }
 }
 
-void PhysicsEngine::Collision::ResolveCircleCollision(Point& a, Point& b) {
+void PhysicsEngine::Collision::ResolveCircle(Point& a, Point& b) {
     float dx = b.position.x - a.position.x;
     float dy = b.position.y - a.position.y;
     float distance = std::sqrt(dx * dx + dy * dy);
@@ -56,7 +56,7 @@ void PhysicsEngine::Collision::ResolveCircleCollision(Point& a, Point& b) {
     }
 }
 
-void PhysicsEngine::SpringForce::ApplyForce(Point& a, Point& b, float restLength, float springConstant, float dt) {
+void PhysicsEngine::Spring::ApplyForce(Point& a, Point& b, float restLength, float springConstant, float dt) {
 
     sf::Vector2f delta = b.position - a.position;
     float currentLength = std::sqrt(delta.x * delta.x + delta.y * delta.y);

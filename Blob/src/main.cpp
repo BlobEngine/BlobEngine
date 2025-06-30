@@ -29,9 +29,6 @@ int main()
 
   // ─── Global Setup ────────────────────────────────────────────────
   Random random;
-  PhysicsEngine::Verlet verlet;
-  PhysicsEngine::SpringForce springPhysics;
-  PhysicsEngine::Collision collision;
   sf::Clock clock;
 
   Shape shape;
@@ -67,19 +64,19 @@ int main()
     Input::Mouse::Drag(shape.points, window);
 
     for (auto &point : shape.points) {
-      verlet.ApplyVerlet(point, dt);
-      collision.ResolveWindowCollision(point, window);
+      PhysicsEngine::Verlet::Apply(point, dt);
+      PhysicsEngine::Collision::ResolveWindow(point, window);
     }
 
     for (size_t i = 0; i < shape.points.size(); ++i) {
       for (size_t j = i + 1; j < shape.points.size(); ++j) {
-        collision.ResolveCircleCollision(shape.points[i], shape.points[j]);
+          PhysicsEngine::Collision::ResolveCircle(shape.points[i], shape.points[j]);
       }
     }
 
     for (auto& spring : springs) {
         spring.restLength = 100.0f;
-        springPhysics.ApplyForce(*spring.a, *spring.b, spring.restLength, spring.springConstant, dt);
+        PhysicsEngine::Spring::ApplyForce(*spring.a, *spring.b, spring.restLength, spring.springConstant, dt);
     }
 
 
@@ -87,11 +84,11 @@ int main()
 
     window.clear(sf::Color::Black);
     ImGui::Begin("DebugMenu");
-    Editor::drawDebugMenu(verlet, shape);
+    Editor::drawDebugMenu(shape);
     ImGui::End();
     shape.Draw(window);
 
-    for (auto& line : springPhysics.springLinesToDraw) {
+    for (auto& line : PhysicsEngine::Spring::springLinesToDraw) {
         sf::Vertex vertices[2] = {
             sf::Vertex{line.first, sf::Color::White},
             sf::Vertex{line.second, sf::Color::White}
@@ -100,7 +97,7 @@ int main()
         window.draw(vertices, 2, sf::PrimitiveType::Lines);
     }
 
-    springPhysics.springLinesToDraw.clear();
+    PhysicsEngine::Spring::springLinesToDraw.clear();
     ImGui::SFML::Render(window);
     window.display();
   }
