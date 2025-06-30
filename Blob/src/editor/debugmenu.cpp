@@ -2,7 +2,7 @@
 
 namespace Editor {
 int pointMass = 5;
-float pointRadius = 20.0f;
+float pointRadius = 10.0f;
 float pointRestitution = 0.85f;
 
 void drawDebugMenu(PhysicsEngine::Verlet &physics, Shape &shape) {

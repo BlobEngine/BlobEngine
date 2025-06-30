@@ -1,6 +1,6 @@
 ﻿#include "../../include/core/input.h"
 
-void Input::MouseDrag(std::vector<Point>& points, const sf::RenderWindow& window) {
+void Input::Mouse::Drag(std::vector<Point>& points, const sf::RenderWindow& window) {
     sf::Vector2f mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
     bool isPressed = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
 

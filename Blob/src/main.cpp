@@ -33,7 +33,6 @@ int main()
   PhysicsEngine::SpringForce springPhysics;
   PhysicsEngine::Collision collision;
   sf::Clock clock;
-  Input input;
 
   Shape shape;
   shape.Initialize(window);
@@ -65,7 +64,7 @@ int main()
     ImGui::SFML::Update(window, delta);
     float dt = delta.asSeconds();
 
-    input.MouseDrag(shape.points, window);
+    Input::Mouse::Drag(shape.points, window);
 
     for (auto &point : shape.points) {
       verlet.ApplyVerlet(point, dt);
@@ -79,7 +78,7 @@ int main()
     }
 
     for (auto& spring : springs) {
-        spring.restLength = 200.0f;
+        spring.restLength = 100.0f;
         springPhysics.ApplyForce(*spring.a, *spring.b, spring.restLength, spring.springConstant, dt);
     }
 
