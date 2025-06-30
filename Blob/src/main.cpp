@@ -48,7 +48,7 @@ int main()
 
 
   for (auto &point : shape.points) {
-    point.color = random.setColor();
+    point.color = sf::Color::White;
   }
 
   // ─── Main Loop ───────────────────────────────────────────────────
