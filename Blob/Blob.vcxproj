@@ -141,6 +141,7 @@
     <ClCompile Include="external\Imgui\src\imgui_draw.cpp" />
     <ClCompile Include="external\Imgui\src\imgui_tables.cpp" />
     <ClCompile Include="external\Imgui\src\imgui_widgets.cpp" />
+    <ClCompile Include="src\core\gameobjects\point.cpp" />
     <ClCompile Include="src\core\gameobjects\shape.cpp" />
     <ClCompile Include="src\core\input.cpp" />
     <ClCompile Include="src\core\physics\physics.cpp" />

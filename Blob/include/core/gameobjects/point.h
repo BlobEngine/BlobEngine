@@ -3,13 +3,13 @@
 
 struct Point {
 
-    int mass = 5;
+    static float mass;
     sf::Vector2f velocity;
     sf::Vector2f position;
 
     // Extra
     sf::Color color;
-    float radius = 20.0f;
-    float restitution = 0.85f;
+    static float radius;
+    static float restitution;
 
 };

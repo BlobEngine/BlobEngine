@@ -72,7 +72,7 @@ void PhysicsEngine::Spring::ApplyForce(Point& a, Point& b, float restLength, flo
     // Damping
     sf::Vector2f relativeVelocity = b.velocity - a.velocity;
     float dampingForceMag = relativeVelocity.x * direction.x + relativeVelocity.y * direction.y;
-    sf::Vector2f dampingForce = springDamping * dampingForceMag * direction;
+    sf::Vector2f dampingForce = damping * dampingForceMag * direction;
 
     // Total Force
     sf::Vector2f totalForce = springForce + dampingForce;
@@ -84,5 +84,5 @@ void PhysicsEngine::Spring::ApplyForce(Point& a, Point& b, float restLength, flo
     a.velocity += aAccel * dt;
     b.velocity += bAccel * dt;
 
-    springLinesToDraw.emplace_back(a.position, b.position);
+    linesToDraw.emplace_back(a.position, b.position);
 }

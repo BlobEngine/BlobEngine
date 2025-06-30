@@ -5,5 +5,5 @@
 #include "../../include/core/gameobjects/shape.h"
 
 namespace Editor {
-void drawDebugMenu(Shape &shape);
+void DrawDebugMenu(Shape &shape);
 }
