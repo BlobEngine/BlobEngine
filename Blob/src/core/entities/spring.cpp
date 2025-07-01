@@ -30,7 +30,7 @@ void SpringSystem::Draw(sf::RenderWindow& window) {
 }
 
 void SpringSystem::InitRope(Shape &shape, Spring& spring) {
-
+	// Rope Simulation
 	for (size_t i = 0; i + 1 < shape.points.size(); ++i) {
 		springs.push_back({ &shape.points[i], &shape.points[i + 1], spring.restLength, spring.springConstant });
 

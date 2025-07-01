@@ -36,6 +36,7 @@ int main() {
 
     shape.Initialize(window);                    // Generate initial points
     springSystem.InitDefault(shape, spring);     // Connect all points with springs
+   // springSystem.InitRope(shape, spring);      // Connect next points with springs (Simulate Rope)
 
     // Main loop
     while (window.isOpen()) {
