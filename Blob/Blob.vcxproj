@@ -143,10 +143,12 @@
     <ClCompile Include="external\Imgui\src\imgui_widgets.cpp" />
     <ClCompile Include="src\core\gameobjects\point.cpp" />
     <ClCompile Include="src\core\gameobjects\shape.cpp" />
+    <ClCompile Include="src\core\gameobjects\spring.cpp" />
     <ClCompile Include="src\core\input.cpp" />
     <ClCompile Include="src\core\physics\physics.cpp" />
     <ClCompile Include="src\core\random.cpp" />
     <ClCompile Include="src\editor\debugmenu.cpp" />
+    <ClCompile Include="src\editor\grid.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +169,7 @@
     <ClInclude Include="include\core\physics\physics.h" />
     <ClInclude Include="include\core\random.h" />
     <ClInclude Include="include\editor\debugmenu.h" />
+    <ClInclude Include="include\editor\grid.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

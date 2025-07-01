@@ -1,6 +1,8 @@
 #include <algorithm>
 #include "../../../include/core/gameobjects/shape.h"
 #include "../../../include/core/random.h"
+#include "../../../include/core/physics/physics.h"
+#include "../../../include/editor/debugmenu.h"
 
 // Initialize maxPoints with random position and random velocity
 void Shape::Initialize(sf::RenderWindow& window) {
@@ -10,6 +12,25 @@ void Shape::Initialize(sf::RenderWindow& window) {
         temp.position = random.setPosition(window);
         temp.velocity = random.setVelocity();
         points.push_back(temp);
+    }
+}
+
+
+void Shape::Setup(sf::RenderWindow& window, float dt) {
+
+    // Apply Verlet & Window Collision
+    for (auto& point : points) {
+        PhysicsEngine::Verlet::Apply(point, dt);
+        PhysicsEngine::Collision::ResolveWindow(point, window);
+    }
+
+    // Apply Circle Collision
+    if (Editor::activeCircleCollide) {
+        for (size_t i = 0; i < points.size(); ++i) {
+            for (size_t j = i + 1; j < points.size(); ++j) {
+                PhysicsEngine::Collision::ResolveCircle(points[i], points[j]);
+            }
+        }
     }
 }
 

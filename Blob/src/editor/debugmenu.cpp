@@ -9,7 +9,7 @@ namespace Editor {
 	float pointRestitution = Point::restitution;
 	int newMaxPoints = 10;
 
-	void DrawDebugMenu(std::vector<Spring>& springs) {
+	void DrawDebugMenu(SpringSystem& springs) {
 
 		ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
 		ImGui::SetNextWindowSize(ImVec2(250, 0), ImGuiCond_Always); // fixed width, full height
@@ -72,7 +72,7 @@ namespace Editor {
 
 
 	// Apply changes to all springs & points
-		for (auto& spring : springs) {
+		for (auto& spring : springs.springs) {
 			spring.restLength = restLength;
 			spring.springConstant = springConstant;
 			spring.a->mass = pointMass;

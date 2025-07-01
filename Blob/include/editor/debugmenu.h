@@ -11,5 +11,5 @@ namespace Editor {
 
 	inline bool activeCircleCollide = false;
 
-	void DrawDebugMenu(std::vector<Spring>& springs);
+	void DrawDebugMenu(SpringSystem& springs);
 }
