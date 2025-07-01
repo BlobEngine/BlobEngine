@@ -1,6 +1,6 @@
 #pragma once
-#include "../../core/gameobjects/point.h"
-#include "../../core/gameobjects/shape.h"
+#include "../../core/entities/point.h"
+#include "../../core/entities/shape.h"
 
 struct Spring {
 

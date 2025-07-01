@@ -18,7 +18,7 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\gameobjects\shape.cpp">
+    <ClCompile Include="src\core\entities\shape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="external\Imgui\src\imgui.cpp">
@@ -39,22 +39,22 @@
     <ClCompile Include="external\Imgui-SFML\src\imgui-SFML.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\random.cpp">
+    <ClCompile Include="src\core\system\random.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\input.cpp">
+    <ClCompile Include="src\core\input\mouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\editor\debugmenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\gameobjects\point.cpp">
+    <ClCompile Include="src\core\entities\point.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\editor\grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\gameobjects\spring.cpp">
+    <ClCompile Include="src\core\entities\spring.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\physics\verlet.cpp">
@@ -68,10 +68,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\core\config.h">
+    <ClInclude Include="include\core\system\config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\gameobjects\shape.h">
+    <ClInclude Include="include\core\entities\shape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="external\Imgui\include\imconfig.h">
@@ -101,19 +101,19 @@
     <ClInclude Include="external\Imgui-SFML\include\imgui-SFML_export.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\random.h">
+    <ClInclude Include="include\core\system\random.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\gameobjects\point.h">
+    <ClInclude Include="include\core\entities\point.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\input.h">
+    <ClInclude Include="include\core\input\mouse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\editor\debugmenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\gameobjects\spring.h">
+    <ClInclude Include="include\core\entities\spring.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\editor\grid.h">

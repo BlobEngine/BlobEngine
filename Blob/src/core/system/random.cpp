@@ -1,6 +1,6 @@
 #include <random>
-#include "../../include/core/random.h"
-#include "../../include/core/config.h"
+#include "../../../include/core/system/random.h"
+#include "../../../include/core/system/config.h"
 
 Random::Random()
 	: gen(std::random_device{}()),

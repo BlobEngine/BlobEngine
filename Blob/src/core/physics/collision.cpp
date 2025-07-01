@@ -1,6 +1,6 @@
-#include "../../../include/core/physics/Collision.h"
 #include <cmath>
 #include <algorithm>
+#include "../../../include/core/physics/Collision.h"
 
 void PhysicsEngine::Collision::ResolveWindow(Point& point, const sf::RenderWindow& window) {
     if (point.position.x - point.radius < 0 || point.position.x + point.radius > window.getSize().x) {

@@ -1,4 +1,4 @@
-﻿#include "../../include/core/input.h"
+﻿#include "../../../include/core/input/mouse.h"
 
 void Input::Mouse::Drag(std::vector<Point>& points, const sf::RenderWindow& window) {
     sf::Vector2f mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
@@ -12,10 +12,12 @@ void Input::Mouse::Drag(std::vector<Point>& points, const sf::RenderWindow& wind
         float distSquared = toMouse.x * toMouse.x + toMouse.y * toMouse.y;
 
         if (distSquared <= point.radius * point.radius) {
+
             point.color = sf::Color::Yellow; // Hover color
             hoveredPoint = &point;
         }
         else {
+
             point.color = sf::Color::White; // Default color
         }
     }

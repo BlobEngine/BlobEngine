@@ -1,78 +1,72 @@
 ﻿#include "../external/Imgui-SFML/include/imgui-SFML.h"
 #include "../external/Imgui/include/imgui.h"
 
-#include "../include/core/config.h"
-#include "../include/core/gameobjects/shape.h"
-#include "../include/core/gameobjects/spring.h"
-#include "../include/core/input.h"
-#include "../include/core/random.h"
-
+#include "../include/core/entities/shape.h"
+#include "../include/core/entities/spring.h"
+#include "../include/core/input/mouse.h"
+#include "../include/core/system/config.h"
+#include "../include/core/system/random.h"
 #include "../include/editor/debugmenu.h"
 #include "../include/editor/grid.h"
 
 int main() {
-    // ─── Window & ImGui Initialization ───────────────────────────────
     GameWindow gameWindow;
     sf::ContextSettings settings;
     settings.antiAliasingLevel = gameWindow.ANTI_ALIASING;
 
+    // Create main application window
     sf::RenderWindow window(
         sf::VideoMode({ gameWindow.WINDOW_WIDTH, gameWindow.WINDOW_HEIGHT }),
         gameWindow.WINDOW_TITLE,
         sf::Style::Default
     );
     window.setFramerateLimit(gameWindow.FRAME_RATE);
-    ImGui::SFML::Init(window);
 
-    // ─── Core Systems Initialization ─────────────────────────────────
-    Random random;         // Random number generator for point placement, etc.
-    sf::Clock clock;       // For frame delta time
-    Grid grid;             // Grid overlay
+    ImGui::SFML::Init(window); // Initialize ImGui for SFML
 
-    Shape shape;           // The dynamic shape made of points
-    Spring spring;         // Temporary spring (not directly used here)
-    SpringSystem springSystem;  // Handles spring connection and forces
+    // Core systems
+    Random random;
+    sf::Clock clock;
+    Grid grid;
 
-    shape.Initialize(window);                     // Create points
-    springSystem.InitDefault(shape, spring);      // Connect springs between points
+    // Simulation objects
+    Shape shape;
+    Spring spring;
+    SpringSystem springSystem;
 
-    // ─── Simulation Main Loop ────────────────────────────────────────
+    shape.Initialize(window);                    // Generate initial points
+    springSystem.InitDefault(shape, spring);     // Connect all points with springs
+
+    // Main loop
     while (window.isOpen()) {
-        // Handle window & ImGui events
+        // Event handling
         while (const std::optional event = window.pollEvent()) {
             ImGui::SFML::ProcessEvent(window, *event);
-            if (event->is<sf::Event::Closed>()) {
-                window.close();
-            }
+            if (event->is<sf::Event::Closed>()) window.close();
         }
 
-        // ─── Time Step Update ───────────────────────────────────────
         sf::Time delta = clock.restart();
         ImGui::SFML::Update(window, delta);
         float dt = delta.asSeconds();
 
-        // ─── User Input ─────────────────────────────────────────────
-        Input::Mouse::Drag(shape.points, window);  // Dragging points with mouse
+        Input::Mouse::Drag(shape.points, window); // Handle dragging
 
-        // ─── Physics Updates ────────────────────────────────────────
-        shape.Setup(window, dt);                   // Verlet integration + collisions
-        springSystem.Setup(dt);                    // Apply spring forces
+        shape.Setup(window, dt);        // Physics integration and collision
+        springSystem.Setup(dt);         // Apply spring physics
 
-        // ─── Rendering ──────────────────────────────────────────────
-        window.clear(sf::Color::Black);            // Clear background
+        window.clear(sf::Color::Black);
 
-        Editor::DebugMenu::Draw(springSystem);     // Draw ImGui debug panel
+        Editor::DebugMenu::Draw(springSystem); // Draw debug UI
         ImGui::End();
 
-        grid.Initialize(window);                   // Draw grid lines
-        shape.Draw(window);                        // Draw points
-        springSystem.Draw(window);                 // Draw springs
+        grid.Initialize(window);
+        shape.Draw(window);
+        springSystem.Draw(window);
 
-        ImGui::SFML::Render(window);               // Render ImGui UI
-        window.display();                          // Swap front/back buffers
+        ImGui::SFML::Render(window);
+        window.display();
     }
 
-    // ─── Shutdown ───────────────────────────────────────────────────
-    ImGui::SFML::Shutdown();
+    ImGui::SFML::Shutdown(); // Clean up ImGui
     return 0;
 }

@@ -1,6 +1,6 @@
-#include "../../../include/core/physics/springforce.h"
 #include <cmath>
 #include <algorithm>
+#include "../../../include/core/physics/springforce.h"
 
 void PhysicsEngine::Spring::ApplyForce(Point& a, Point& b, float restLength, float springConstant, float dt) {
 

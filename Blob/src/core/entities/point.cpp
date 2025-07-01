@@ -1,4 +1,4 @@
-#include "../../../include/core/gameobjects/point.h"
+#include "../../../include/core/entities/point.h"
 
 float Point::mass = 5;
 float Point::radius = 10.0f; 

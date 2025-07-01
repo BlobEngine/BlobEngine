@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "../gameobjects/point.h"
+#include "../entities/point.h"
 
 struct Shape {
 

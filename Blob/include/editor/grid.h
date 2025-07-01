@@ -1,5 +1,5 @@
 #pragma once
-#include "../../include/core/config.h"
+#include "../../include/core/system/config.h"
 #include <SFML/Graphics.hpp>
 
 struct Grid

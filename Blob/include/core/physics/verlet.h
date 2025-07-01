@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <SFML/Graphics.hpp>
-#include "../gameobjects/point.h"
+#include "../entities/point.h"
 
 namespace PhysicsEngine {
 

@@ -1,6 +1,6 @@
 #include <algorithm>
-#include "../../../include/core/gameobjects/shape.h"
-#include "../../../include/core/random.h"
+#include "../../../include/core/entities/shape.h"
+#include "../../../include/core/system/random.h"
 #include "../../../include/core/physics/verlet.h"
 #include "../../../include/core/physics/collision.h"
 #include "../../../include/editor/debugmenu.h"
