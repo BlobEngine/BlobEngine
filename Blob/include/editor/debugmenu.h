@@ -8,5 +8,8 @@
 #include <vector>
 
 namespace Editor {
-void DrawDebugMenu(std::vector<Spring> &springs);
+
+	inline bool activeCircleCollide = false;
+
+	void DrawDebugMenu(std::vector<Spring>& springs);
 }
