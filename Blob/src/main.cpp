@@ -79,10 +79,6 @@ int main() {
 
 		window.clear(sf::Color::Black);
 
-		ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
-		ImGui::SetNextWindowSize(ImVec2(250, window.getSize().y), ImGuiCond_Always); // fixed width, full height
-
-		ImGui::Begin("DebugMenu", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
 		Editor::DrawDebugMenu(springs);
 		ImGui::End();
 
