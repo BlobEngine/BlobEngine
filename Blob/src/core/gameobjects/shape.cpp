@@ -1,7 +1,8 @@
 #include <algorithm>
 #include "../../../include/core/gameobjects/shape.h"
 #include "../../../include/core/random.h"
-#include "../../../include/core/physics/physics.h"
+#include "../../../include/core/physics/verlet.h"
+#include "../../../include/core/physics/collision.h"
 #include "../../../include/editor/debugmenu.h"
 
 // Initialize maxPoints with random position and random velocity

@@ -1,5 +1,5 @@
 #include "../../../include/core/gameobjects/spring.h"
-#include "../../../include/core/physics/physics.h"
+#include "../../../include/core/physics/springforce.h"
 
 void SpringSystem::InitDefault(Shape& shape, Spring& spring) {
 

@@ -2,8 +2,12 @@
 #include "../../external/Imgui-SFML/include/imgui-SFML.h"
 #include "../../external/Imgui/include/imgui.h"
 #include "../../include/core/gameobjects/shape.h"
-#include "../../include/core/physics/physics.h"
 #include "../../include/core/gameobjects/spring.h"
+
+#include "../../include/core/physics/verlet.h"
+#include "../../include/core/physics/collision.h"
+#include "../../include/core/physics/springforce.h"
+
 #include <cstddef>
 #include <vector>
 

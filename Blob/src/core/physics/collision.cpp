@@ -1,17 +1,6 @@
-#include "../../../include/core/physics/physics.h"
+#include "../../../include/core/physics/Collision.h"
 #include <cmath>
 #include <algorithm>
-
-void PhysicsEngine::Verlet::Apply(Point& p, float dt) {
-    sf::Vector2f force = gravity * static_cast<float>(p.mass);
-    p.velocity += force * dt;
-    p.position += p.velocity * dt;
-
-    if (p.velocity.x > 0)
-        p.velocity.x = std::max(0.0f, p.velocity.x - damping * dt);
-    if (p.velocity.y > 0)
-        p.velocity.y = std::max(0.0f, p.velocity.y - damping * dt);
-}
 
 void PhysicsEngine::Collision::ResolveWindow(Point& point, const sf::RenderWindow& window) {
     if (point.position.x - point.radius < 0 || point.position.x + point.radius > window.getSize().x) {
@@ -54,35 +43,4 @@ void PhysicsEngine::Collision::ResolveCircle(Point& a, Point& b) {
         a.position -= displacement;
         b.position += displacement;
     }
-}
-
-void PhysicsEngine::Spring::ApplyForce(Point& a, Point& b, float restLength, float springConstant, float dt) {
-
-    sf::Vector2f delta = b.position - a.position;
-    float currentLength = std::sqrt(delta.x * delta.x + delta.y * delta.y);
-
-    if (currentLength == 0.0f) return;
-
-    sf::Vector2f direction = delta / currentLength;
-    float displacement = currentLength - restLength;
-
-    // Hooke's Law
-    sf::Vector2f springForce = springConstant * displacement * direction;
-
-    // Damping
-    sf::Vector2f relativeVelocity = b.velocity - a.velocity;
-    float dampingForceMag = relativeVelocity.x * direction.x + relativeVelocity.y * direction.y;
-    sf::Vector2f dampingForce = damping * dampingForceMag * direction;
-
-    // Total Force
-    sf::Vector2f totalForce = springForce + dampingForce;
-
-    // Apply Force
-    sf::Vector2f aAccel = totalForce * (1.0f / a.mass);
-    sf::Vector2f bAccel = -totalForce * (1.0f / b.mass);
-
-    a.velocity += aAccel * dt;
-    b.velocity += bAccel * dt;
-
-    linesToDraw.emplace_back(a.position, b.position);
 }
