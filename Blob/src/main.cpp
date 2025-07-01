@@ -1,9 +1,4 @@
-﻿// ─────────────────────────────────────────────────────────────────────────────
-// Project: Spring-Based Physics Simulation
-// Desc   : Entry point that initializes the window, systems, and runs the simulation loop
-// ─────────────────────────────────────────────────────────────────────────────
-
-#include "../external/Imgui-SFML/include/imgui-SFML.h"
+﻿#include "../external/Imgui-SFML/include/imgui-SFML.h"
 #include "../external/Imgui/include/imgui.h"
 
 #include "../include/core/config.h"
@@ -67,7 +62,7 @@ int main() {
         // ─── Rendering ──────────────────────────────────────────────
         window.clear(sf::Color::Black);            // Clear background
 
-        Editor::DrawDebugMenu(springSystem);       // Draw ImGui debug panel
+        Editor::DebugMenu::Draw(springSystem);     // Draw ImGui debug panel
         ImGui::End();
 
         grid.Initialize(window);                   // Draw grid lines

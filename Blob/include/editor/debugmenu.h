@@ -9,7 +9,23 @@
 
 namespace Editor {
 
-	inline bool activeCircleCollide = false;
+	namespace DebugMenu {
 
-	void DrawDebugMenu(SpringSystem& springs);
+		inline float restLength = 100.0f;
+		inline float springConstant = 60.0f;
+		inline float pointMass = Point::mass;
+		inline float pointRadius = Point::radius;
+		inline float pointRestitution = Point::restitution;
+		inline int newMaxPoints = 10;
+		inline bool activeCircleCollide = false;
+
+		void Init();
+		void WorldSetup();
+		void PointSetup(SpringSystem& springs);
+		void SpringSetup(SpringSystem& springs);
+		void Apply(SpringSystem& springs);
+		void Draw(SpringSystem& springs);
+
+	}
+
 }

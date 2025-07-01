@@ -25,7 +25,7 @@ void Shape::Setup(sf::RenderWindow& window, float dt) {
     }
 
     // Apply Circle Collision
-    if (Editor::activeCircleCollide) {
+    if (Editor::DebugMenu::activeCircleCollide) {
         for (size_t i = 0; i < points.size(); ++i) {
             for (size_t j = i + 1; j < points.size(); ++j) {
                 PhysicsEngine::Collision::ResolveCircle(points[i], points[j]);

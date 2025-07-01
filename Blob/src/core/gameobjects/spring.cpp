@@ -8,7 +8,6 @@ void SpringSystem::InitDefault(Shape& shape, Spring& spring) {
 			springs.push_back({ &shape.points[i], &shape.points[j], spring.restLength, spring.springConstant });
 		}
 	}
-
 }
 
 void SpringSystem::Setup(float dt) {
