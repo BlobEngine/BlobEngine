@@ -3,7 +3,7 @@
 void Editor::DebugMenu::Init() {
 
 	ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
-	ImGui::SetNextWindowSize(ImVec2(250, 0), ImGuiCond_Always); // fixed width, full height
+	ImGui::SetNextWindowSize(ImVec2(250, 0), ImGuiCond_Always);
 	ImGui::Begin("Debug Menu Properties", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
 	ImGui::Text("FPS: %.1f", 1.0f / ImGui::GetIO().DeltaTime);
 	ImGui::Separator();
@@ -17,7 +17,6 @@ void Editor::DebugMenu::WorldSetup() {
 	if (ImGui::CollapsingHeader("World")) {
 		ImGui::Text("Gravity");
 
-		// Horizontal layout for X and Y
 		{
 			// --- Dark Red "X" Button ---
 			ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(128, 32, 32, 255)); // Dark red
@@ -43,7 +42,7 @@ void Editor::DebugMenu::WorldSetup() {
 			ImGui::InputFloat("##gravityY", &PhysicsEngine::Verlet::gravity.y);
 		}
 
-		ImGui::InputFloat("Damping##damping", &PhysicsEngine::Verlet::damping);
+		ImGui::InputFloat("Damping", &PhysicsEngine::Verlet::damping);
 	}
 
 }
@@ -53,11 +52,11 @@ void Editor::DebugMenu::PointSetup(SpringSystem& springs) {
 	// Point Properties
 	if (ImGui::CollapsingHeader("Point")) {
 
-		ImGui::InputFloat("Mass##mass", &pointMass, 0.0f, 0.0f, "%.2f");
-		ImGui::InputFloat("Radius##radius", &pointRadius, 0.0f, 0.0f, "%.2f");
+		ImGui::InputFloat("Mass", &pointMass, 0.0f, 0.0f, "%.2f");
+		ImGui::InputFloat("Radius", &pointRadius, 0.0f, 0.0f, "%.2f");
 		ImGui::Separator();
 		if (ImGui::Checkbox("Point Collision", &activeCircleCollide)) {};
-		ImGui::InputFloat("Restitution##restitution", &pointRestitution, 0.0f, 0.0f, "%.2f");
+		ImGui::InputFloat("Restitution", &pointRestitution, 0.0f, 0.0f, "%.2f");
 	}
 
 }
@@ -68,6 +67,7 @@ void Editor::DebugMenu::SpringSetup(SpringSystem& springs) {
 	if (ImGui::CollapsingHeader("Spring")) {
 		ImGui::InputFloat("Rest Length", &restLength, 0.0f, 0.0f, "%.2f");
 		ImGui::InputFloat("Spring Constant", &springConstant, 0.0f, 0.0f, "%.2f");
+		ImGui::InputFloat("Spring Damping", &PhysicsEngine::Spring::damping);
 	}
 
 }

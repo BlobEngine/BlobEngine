@@ -16,10 +16,14 @@ struct SpringSystem {
 
 	std::vector<Spring> springs;
 
-	void InitDefault(Shape& shape, Spring& spring);
+	void InitAll(Shape& shape, Spring& spring);
+	void InitPerMesh(Shape& shape, Spring& spring);
+	void InitPerVertex(Shape& shape, Spring& spring);
+	void InitRadialCenter(Shape& shape, Spring& spring);
+	void InitCircular(Shape& shape, Spring& spring);
+	void InitCircularCenter(Shape& shape, Spring& spring);
+
 	void Setup(float dt);
 	void Draw(sf::RenderWindow& window);
 
-	// Rope Simulation
-	void InitRope(Shape& shape, Spring& spring);
 };
