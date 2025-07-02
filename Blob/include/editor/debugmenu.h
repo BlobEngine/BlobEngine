@@ -4,32 +4,32 @@
 #include "../../include/core/entities/shape.h"
 #include "../../include/core/entities/spring.h"
 
-#include "../../include/core/physics/verlet.h"
 #include "../../include/core/physics/collision.h"
 #include "../../include/core/physics/springforce.h"
+#include "../../include/core/physics/verlet.h"
 
 #include <cstddef>
 #include <vector>
 
 namespace Editor {
 
-	namespace DebugMenu {
+namespace DebugMenu {
 
-		inline float restLength = 100.0f;
-		inline float springConstant = 60.0f;
-		inline float pointMass = Point::mass;
-		inline float pointRadius = Point::radius;
-		inline float pointRestitution = Point::restitution;
-		inline int newMaxPoints = 10;
-		inline bool activeCircleCollide = false;
+inline float restLength = 100.0f;
+inline float springConstant = 60.0f;
+inline float pointMass = Point::mass;
+inline float pointRadius = Point::radius;
+inline float pointRestitution = Point::restitution;
+inline int newMaxPoints = 10;
+inline bool activeCircleCollide = false;
 
-		void Init();
-		void WorldSetup();
-		void PointSetup(SpringSystem& springs);
-		void SpringSetup(SpringSystem& springs);
-		void Apply(SpringSystem& springs);
-		void Draw(SpringSystem& springs);
+void Init();
+void WorldSetup(int &maxpointvalue);
+void PointSetup(SpringSystem &springs);
+void SpringSetup(SpringSystem &springs);
+void Apply(SpringSystem &springs);
+void Draw(SpringSystem &springs, int &maxpointval);
 
-	}
+} // namespace DebugMenu
 
-}
+} // namespace Editor

@@ -1,15 +1,16 @@
 #pragma once
+#include "../entities/point.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "../entities/point.h"
 
 struct Shape {
 
-    int maxPoints = 8;
-    std::vector<Point> points;
+  static int maxPoints;
+  std::vector<Point> points;
 
-    void Initialize(sf::RenderWindow& window);    // Setup points with random values
-    void Setup(sf::RenderWindow& window, float dt);
-    void Draw(sf::RenderWindow& window);          // Render each point on screen
-
+  void Init(sf::RenderWindow &window); // Setup points with random values
+  void Update(sf::RenderWindow &window, int &maxpointvalue,
+              bool &changeMaxPoint);
+  void Setup(sf::RenderWindow &window, float dt);
+  void Draw(sf::RenderWindow &window); // Render each point on screen
 };
