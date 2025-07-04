@@ -14,11 +14,10 @@ void SpringSystem::InitAll(Shape &shape, Spring &spring) {
 }
 // Updates the spring in runtime
 void SpringSystem::UpdateAll(Shape &shape, Spring &spring) {
-  for (size_t i = 0; i < shape.maxPoints; ++i) {
-    std::cout << "springshape:" << shape.maxPoints << std::endl;
-    for (size_t j = i + 1; j < shape.maxPoints; j++) {
-      springs.pop_back();
-    }
+  size_t springSize = springs.size();
+  for (size_t i = 0; i < springSize; ++i) {
+    std::cout << "springshape:" << springSize << std::endl;
+    springs.pop_back();
   }
   shape.maxPoints = shape.points.size();
   for (size_t i = 0; i < shape.points.size(); ++i) {
